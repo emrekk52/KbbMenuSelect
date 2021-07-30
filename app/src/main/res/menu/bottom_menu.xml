@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/home_b"
+        android:title="Anasayfa"
+        app:exb_color="@color/lightRed"
+        app:exb_badgeColor="@color/lightRed"
+        app:exb_badgeTextColor="@color/white"
+        />
+
+    <item
+        android:id="@+id/likeFoodFragment"
+        android:icon="@drawable/like_b"
+        android:title="Beğendiklerim"
+        app:exb_color="@color/lightGreen"
+        app:exb_badgeColor="@color/lightGreen"
+        app:exb_badgeTextColor="@color/white"/>
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/profile_b"
+        android:title="Profil"
+        app:exb_color="@color/darkOrange"
+        app:exb_badgeColor="@color/darkOrange"
+        app:exb_badgeTextColor="@color/white"/>
+</menu>

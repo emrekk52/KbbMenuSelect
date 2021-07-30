@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "349278281715",
+    "project_id": "menuapp-28717",
+    "storage_bucket": "menuapp-28717.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349278281715:android:be56776135b6fa0638bc86",
+        "android_client_info": {
+          "package_name": "com.emrek.kbbmenuselect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349278281715-37itafakts5vs8o86r2uu9u7h5fflaet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAA8CF_svdcoXyypD8z8trlElzkG9TB2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349278281715-37itafakts5vs8o86r2uu9u7h5fflaet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
