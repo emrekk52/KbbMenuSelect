@@ -1,9 +1,13 @@
 package com.emrek.kbbmenuselect.activitys
 
+import android.app.Activity
+import android.content.Context
+import android.gesture.Gesture
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +30,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.Util.SDK_INT
 import com.squareup.picasso.Picasso
 import okhttp3.internal.Util
+import java.lang.Exception
 import java.util.*
 
 class StoryActivity : AppCompatActivity() {
@@ -61,7 +66,7 @@ class StoryActivity : AppCompatActivity() {
     private fun initPlayer() {
 
 
-        simplePlayer = SimpleExoPlayer.Builder(this).build()
+        simplePlayer = SimpleExoPlayer.Builder(this@StoryActivity).build()
         binding.exoPlayer.player = simplePlayer
 
         object : YouTubeExtractor(this) {
@@ -197,5 +202,7 @@ class StoryActivity : AppCompatActivity() {
         super.onStop()
     }
 }
+
+
 
 

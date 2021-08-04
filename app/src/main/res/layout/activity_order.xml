@@ -8,10 +8,10 @@
 
 
     <com.airbnb.lottie.LottieAnimationView
-        android:layout_centerInParent="true"
         android:id="@+id/food_not_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:visibility="gone"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
@@ -35,30 +35,17 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/back_button" />
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/myProfileButton"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/avocado"
-            app:civ_border_color="@color/lightOrange"
-            app:civ_border_width="2dp"
-            app:civ_shadow="true"
-            app:civ_shadow_color="@color/darkOrange"
-            app:civ_shadow_radius="2dp" />
+            android:src="@drawable/back_button" />
+
+
 
     </RelativeLayout>
 
@@ -133,7 +120,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:fontFamily="@font/roboto_medium"
-                android:text="12.80"
                 android:textColor="@color/lightBlack"
                 android:textSize="16sp" />
 
@@ -168,7 +154,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:fontFamily="@font/roboto_medium"
-                android:text="0.75"
                 android:textColor="@color/lightBlack"
                 android:textSize="16sp" />
 
@@ -219,6 +204,7 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/button_okey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -229,7 +215,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="10dp"
-            app:icon="@drawable/credit_card"
+            app:icon="@drawable/credit"
             app:iconGravity="textStart" />
 
     </LinearLayout>

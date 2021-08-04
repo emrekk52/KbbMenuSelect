@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <item
-        android:id="@+id/mainFragment"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/home_b"
         android:title="Anasayfa"
-        app:exb_color="@color/lightRed"
         app:exb_badgeColor="@color/lightRed"
         app:exb_badgeTextColor="@color/white"
-        />
+        app:exb_color="@color/lightRed" />
+
+
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/category_b"
+        android:title="Kategoriler"
+        app:exb_badgeColor="@color/darkOrange"
+        app:exb_badgeTextColor="@color/white"
+        app:exb_color="@color/darkOrange" />
+
+
+    <item
+        android:id="@+id/myOrderFragment"
+        android:icon="@drawable/delivery"
+        android:title="Siparişlerim"
+        app:exb_badgeColor="@color/darkYellow"
+        app:exb_badgeTextColor="@color/white"
+        app:exb_color="@color/darkYellow" />
+
 
     <item
         android:id="@+id/likeFoodFragment"
         android:icon="@drawable/like_b"
         android:title="Beğendiklerim"
-        app:exb_color="@color/lightGreen"
         app:exb_badgeColor="@color/lightGreen"
-        app:exb_badgeTextColor="@color/white"/>
+        app:exb_badgeTextColor="@color/white"
+        app:exb_color="@color/lightGreen" />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/profile_b"
-        android:title="Profil"
-        app:exb_color="@color/darkOrange"
-        app:exb_badgeColor="@color/darkOrange"
-        app:exb_badgeTextColor="@color/white"/>
+        android:title="Hesabım"
+        app:exb_badgeColor="@color/darkBlue"
+        app:exb_badgeTextColor="@color/white"
+        app:exb_color="@color/darkBlue" />
 </menu>

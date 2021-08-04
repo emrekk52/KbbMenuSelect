@@ -82,9 +82,11 @@ class LikeFoodFragment : Fragment() {
                         it.child("foodDescription").value.toString(),
                         it.child("foodPrice").value.toString(),
                         it.child("foodColor").value.toString(),
-                        it.child("drinkLiter").value.toString()
+                        it.child("drinkLiter").value.toString(),
+                        it.child("foodCategory").value.toString()
                     )
                     foodModel.foodID = it.child("foodID").value.toString()
+                    foodModel.food_likes = it.child("food_likes").value.toString().toInt()
                     likesList.add(
                         foodModel
                     )

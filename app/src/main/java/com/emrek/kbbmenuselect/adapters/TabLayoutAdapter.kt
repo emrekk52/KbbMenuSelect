@@ -32,4 +32,6 @@ class TabLayoutAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         fragmentTitleList.add(title)
     }
 
+
+
 }

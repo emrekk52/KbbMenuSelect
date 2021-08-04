@@ -90,7 +90,12 @@ class OrderAdapter(private val dataset: List<FoodBag>, private val activity: Ord
                         .toFloat() + foodPrice?.text.toString().toFloat()).toString()
                 activity.binding.bagTotal.text =
                     String.format("%.2f", activity.binding.bagTotal.text.toString().toFloat())
+
                 sumTotal()
+
+                updateDatabase(data, piece.toString(), totalPrice?.text.toString())
+
+
             }
 
             decrease?.setOnClickListener {
@@ -103,6 +108,7 @@ class OrderAdapter(private val dataset: List<FoodBag>, private val activity: Ord
                         String.format("%.2f", activity.binding.bagTotal.text.toString().toFloat())
 
                     sumTotal()
+
                 }
 
                 if (piece < 10) {
@@ -113,6 +119,11 @@ class OrderAdapter(private val dataset: List<FoodBag>, private val activity: Ord
                 val total = piece * foodPrice?.text.toString().toFloat()
                 totalPrice?.text = String.format("%.2f", total)
 
+                updateDatabase(
+                    data,
+                    piece.toString(),
+                    totalPrice?.text.toString()
+                )
 
             }
 
@@ -128,9 +139,19 @@ class OrderAdapter(private val dataset: List<FoodBag>, private val activity: Ord
 
         fun sumTotal() {
 
-            val sumT = activity.binding.bagTotal.text.toString().toFloat() + activity.binding.tax.text.toString().toFloat() + activity.binding.tax2.text.toString().toFloat()
+            val sumT = activity.binding.bagTotal.text.toString()
+                .toFloat() + activity.tax1
+                .toFloat() + activity.tax2
 
             activity.binding.total.text = String.format("%.2f", sumT)
+
+        }
+
+
+        fun updateDatabase(data: FoodBag, piece: String, bagTotalPrice: String) {
+            data.bagFoodPiece = piece
+            data.bagTotalPrice = bagTotalPrice
+            GetFoods().getBags().child(data.foodID.toString()).setValue(data)
 
         }
 

@@ -8,17 +8,7 @@ import com.emrek.kbbmenuselect.models.ProfileModel
 class MainViewModel : ViewModel() {
 
 
-    private var profile = MutableLiveData<ProfileModel>()
     private var like_count = MutableLiveData<Long>()
-
-
-    fun getProfile(): LiveData<ProfileModel> {
-        return profile
-    }
-
-    fun setProfile(profil: ProfileModel) {
-        profile.value = profil
-    }
 
 
     fun getLikeCount(): LiveData<Long> {
@@ -28,5 +18,9 @@ class MainViewModel : ViewModel() {
     fun setLikeCount(count: Long) {
         like_count.value = count
     }
+
+
+
+
 
 }

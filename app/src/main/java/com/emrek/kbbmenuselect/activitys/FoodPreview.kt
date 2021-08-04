@@ -6,26 +6,34 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.*
-import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModelProvider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.emrek.kbbmenuselect.GetFoods
 import com.emrek.kbbmenuselect.R
 import com.emrek.kbbmenuselect.databinding.ActivityFoodPreviewBinding
+import com.emrek.kbbmenuselect.models.CommentModel
 import com.emrek.kbbmenuselect.models.FoodBag
 import com.emrek.kbbmenuselect.models.FoodModel
+import com.emrek.kbbmenuselect.viewmodels.FoodPreviewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FoodPreview : BottomSheetDialogFragment() {
 
     private lateinit var binding: ActivityFoodPreviewBinding
     var count = 1
+    lateinit var data: FoodModel
+    lateinit var viewModel: FoodPreviewModel
+    private lateinit var list: ArrayList<CommentModel>
 
     var bags = GetFoods().getBags()
     var likeFoods = GetFoods().getLikeFoods()
@@ -40,8 +48,12 @@ class FoodPreview : BottomSheetDialogFragment() {
 
         binding = ActivityFoodPreviewBinding.inflate(layoutInflater)
 
+        viewModel = ViewModelProvider(requireActivity()).get(FoodPreviewModel::class.java)
 
-        var data = arguments?.getParcelable<FoodModel>("data")
+        data = arguments?.getParcelable<FoodModel>("data")!!
+
+        if (data?.isOffer == true)
+            binding.offerLayout.visibility = View.VISIBLE
 
         getLikeFoodId(data?.foodID!!)
 
@@ -68,9 +80,12 @@ class FoodPreview : BottomSheetDialogFragment() {
         binding.foodDescription.text = data?.foodDescription
         binding.foodPrice.text = "₺" + data?.foodPrice?.replace('.', ',')
 
+        binding.deliveryTime.text = "Yaklaşık ${data?.deliveryTime} dakika içerisinde hazır!"
+        binding.foodCalory.text = "1 adet ${data?.foodCalory}joule(${data?.foodGram})"
 
         buttonClick(data!!)
         getBagsLength()
+        viewModelCheck()
 
 
         binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_INSIDE)
@@ -78,6 +93,41 @@ class FoodPreview : BottomSheetDialogFragment() {
 
         return binding.root
     }
+
+
+    fun viewModelCheck() {
+
+        if (GetFoods().isAuth()) {
+            binding.commentTextLayout.visibility = View.VISIBLE
+        } else {
+            binding.commentTextLayout.visibility = View.GONE
+            binding.ratingBar.visibility = View.GONE
+            binding.commentButton.visibility = View.GONE
+            binding.commentText.text = "Yorum yapmak için giriş yap"
+            binding.commentText.setTextColor(Color.parseColor("#5A5656"))
+        }
+
+        GetFoods().getComments(viewModel, data.foodID.toString())
+
+        viewModel.getComments().observe(requireActivity(), androidx.lifecycle.Observer {
+            list = it
+        })
+
+        viewModel.getCommentCount().observe(requireActivity(), androidx.lifecycle.Observer {
+
+            if (it > 0) {
+                binding.commentCountLayout.visibility = View.VISIBLE
+                binding.commentCount.text = it.toString() + " adet"
+                binding.commentGo.text = "yorum"
+                binding.commentEnd.text = "bulundu"
+            } else
+                binding.commentCountLayout.visibility = View.GONE
+
+
+        })
+
+    }
+
 
     @SuppressLint("ResourceAsColor")
     private fun buttonClick(data: FoodModel) {
@@ -111,30 +161,34 @@ class FoodPreview : BottomSheetDialogFragment() {
         }
 
         binding.heartButton.setOnClickListener {
-            if (GetFoods().isAuth())
+            if (GetFoods().isLogin(requireActivity()))
                 if (it.tag != "reverse") {
                     it.background =
                         activity?.getDrawable(R.drawable.bottom_button_heart_reverse_background)
                     it.setTag("reverse")
                     binding.heartButton.setImageResource(R.drawable.heart_reverse)
                     addLikeFoods(data)
+                    if (data.food_likes.toString() == "null")
+                        data.food_likes = 1
+                    else
+                        data.food_likes = data.food_likes!!.toInt() + 1
+                    GetFoods().updateFood(data)
                 } else {
                     it.background =
                         activity?.getDrawable(R.drawable.bottom_button_heart_background)
                     it.setTag("normal")
                     binding.heartButton.setImageResource(R.drawable.heart)
                     removeLikeFoods(data)
+                    if (data.food_likes.toString() != "null")
+                        data.food_likes = data.food_likes!!.toInt() - 1
+
+                    GetFoods().updateFood(data)
                 }
-            else {
-                val intent = Intent(activity, LoginActivity::class.java)
-                intent.putExtra("info", "Öncelikle giriş yapmalısınız *")
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-            }
+
         }
 
         binding.addBag.setOnClickListener {
-            if (GetFoods().isAuth())
+            if (GetFoods().isLogin(requireActivity()))
                 if (it.tag != "reverse") {
                     it.setTag("reverse")
                     binding.addBag.text = "Sepete eklendi"
@@ -146,28 +200,87 @@ class FoodPreview : BottomSheetDialogFragment() {
 
                     removeBag(data)
                 }
-            else {
-                val intent = Intent(activity, LoginActivity::class.java)
-                intent.putExtra("info", "Öncelikle giriş yapmalısınız *")
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-            }
+
 
         }
 
 
         binding.shopButton.setOnClickListener {
 
-            val intent: Intent?
-            if (GetFoods().isAuth()) {
-                intent = Intent(activity, OrderActivity::class.java)
-            } else {
-                intent = Intent(activity, LoginActivity::class.java)
-                intent.putExtra("info", "Öncelikle giriş yapmalısınız *")
+            if (GetFoods().isLogin(requireActivity())) {
+                val intent = Intent(activity, OrderActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
+
         }
+
+        binding.commentEdittext.doOnTextChanged { text, start, before, count ->
+            if (text?.trim()?.length!! > 0 && binding.ratingBar.rating > 0) {
+                binding.commentButton.isEnabled = true
+                binding.commentButton.setTextColor(Color.parseColor("#019C09"))
+            } else {
+                binding.commentButton.isEnabled = false
+                binding.commentButton.setTextColor(Color.parseColor("#80AC82"))
+            }
+        }
+
+
+        binding.ratingBar.setOnRatingChangeListener { ratingBar, rating, fromUser ->
+            if (binding.commentEdittext.text?.trim()?.length!! > 0 && rating > 0) {
+                binding.commentButton.isEnabled = true
+                binding.commentButton.setTextColor(Color.parseColor("#019C09"))
+            } else {
+                binding.commentButton.isEnabled = false
+                binding.commentButton.setTextColor(Color.parseColor("#80AC82"))
+            }
+
+        }
+
+        binding.commentButton.setOnClickListener {
+
+            GetFoods().setComments(
+                CommentModel(
+                    binding.commentEdittext.text.toString(),
+                    "",
+                    "",
+                    "",
+                    data.foodID.toString(),
+                    binding.ratingBar.rating
+                ), it
+            )
+
+            binding.commentEdittext.text?.clear()
+            binding.ratingBar.rating = 0f
+
+        }
+
+        binding.commentGo.setOnClickListener {
+
+            if (list.size > 0) {
+                val intent = Intent(requireActivity(), CommentActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.putParcelableArrayListExtra("comment", list)
+                intent.putExtra("food_name", data.foodName.toString())
+                startActivity(intent)
+            }
+
+        }
+
+
+
+        binding.foodDescription.setOnClickListener {
+
+            if (binding.foodDescription.ellipsize != null) {
+                binding.foodDescription.ellipsize = null
+                binding.foodDescription.maxLines = Integer.MAX_VALUE
+            } else {
+                binding.foodDescription.ellipsize = TextUtils.TruncateAt.END
+                binding.foodDescription.maxLines = 4
+            }
+
+        }
+
 
     }
 
@@ -222,7 +335,7 @@ class FoodPreview : BottomSheetDialogFragment() {
             (foodBag.bagFoodPiece.toString().toInt() * data.foodPrice?.toFloat()!!).toString()
 
 
-        GetFoods().addToBag(foodBag)
+        GetFoods().addToBag(requireActivity(), foodBag)
 
     }
 
@@ -409,6 +522,8 @@ class FoodPreview : BottomSheetDialogFragment() {
     }
 
 }
+
+
 
 
 

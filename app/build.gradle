@@ -5,8 +5,9 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 
-
 }
+
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -51,7 +52,17 @@ android {
 
 dependencies {
 
+
+    implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:3.0.0'
+
+    implementation 'io.github.vicmikhailau:MaskedEditText:4.0.5'
+
+    implementation 'com.github.wsj1024:AndRatingBar:1.0.6'
+
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-messaging-ktx:22.0.0'
+
+
     def exo_player = "2.14.2"
     def expandable_bottom = "1.4.0"
 

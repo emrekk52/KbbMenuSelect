@@ -13,13 +13,12 @@
         android:layout_height="wrap_content">
 
 
-            <ImageView
-
-                android:id="@+id/food_picture"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:src="@drawable/avocado" />
-
+        <ImageView
+            android:id="@+id/food_picture"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:padding="10dp"
+            android:src="@drawable/avocado" />
 
 
         <RelativeLayout
@@ -41,11 +40,10 @@
 
             <ImageView
                 android:id="@+id/like_button"
-              android:layout_alignParentRight="true"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/like"
-                />
+                android:layout_alignParentRight="true"
+                android:src="@drawable/like" />
 
         </RelativeLayout>
 

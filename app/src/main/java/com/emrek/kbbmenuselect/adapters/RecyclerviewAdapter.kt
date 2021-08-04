@@ -1,6 +1,7 @@
 package com.emrek.kbbmenuselect.adapters
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -23,10 +24,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.menu_design.view.*
 
 class RecyclerviewAdapter(
-    private val dataset: List<FoodModel>,
-    private val adsPlace: Int,
-
-    ) :
+    var activity: Activity,
+    private val dataset: List<FoodModel>
+) :
     RecyclerView.Adapter<RecyclerviewAdapter.ViewHolder>() {
 
 
@@ -48,7 +48,7 @@ class RecyclerviewAdapter(
     override fun onBindViewHolder(holder: RecyclerviewAdapter.ViewHolder, position: Int) {
 
 
-        return holder.setUp(dataset[position], position, adsPlace, dataset.size)
+        return holder.setUp(dataset[position], position, dataset.size)
 
     }
 
@@ -57,7 +57,7 @@ class RecyclerviewAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == adsPlace || position == dataset.size - 1)
+        if (position == 0 || position == dataset.size - 1)
             return R.layout.advertise_design
         else
             return R.layout.menu_design
@@ -92,12 +92,11 @@ class RecyclerviewAdapter(
         fun setUp(
             dataset: FoodModel,
             position: Int,
-            adsPlace: Int,
             dataSize: Int
         ) {
 
 
-            if (position != adsPlace && position != dataSize - 1) {
+            if (position != 0 && position != dataSize - 1) {
                 Picasso.get()
                     .load(dataset?.foodPicture)
                     .placeholder(R.drawable.biggerplaceholder).into(foodPicture)
@@ -109,6 +108,7 @@ class RecyclerviewAdapter(
                 foodDescription?.text = dataset.foodDescription
                 foodPrice?.text = "₺" + dataset.foodPrice
                 setBackground(dataset.foodColor.toString())
+
                 itemView.addButton.setOnClickListener {
                     val foodBag = FoodBag(
                         dataset.foodName,
@@ -122,7 +122,7 @@ class RecyclerviewAdapter(
                     foodBag.bagTotalPrice = dataset.foodPrice
                     foodBag.bagFoodPiece = "1"
 
-                    GetFoods().addToBag(foodBag)
+                    GetFoods().addToBag(activity, foodBag)
 
 
                 }

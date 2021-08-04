@@ -9,7 +9,8 @@ class FoodModel(
     var foodDescription: String?,
     var foodPrice: String?,
     var foodColor: String?,
-    var drinkLiter: String?
+    var drinkLiter: String?,
+    var foodCategory: String?
 ) : Parcelable {
 
 
@@ -22,13 +23,65 @@ class FoodModel(
 
         }
 
+
+    var food_likes: Int? = 0
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+
+        }
+
+
+    var isOffer: Boolean? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+
+        }
+
+
+    var deliveryTime: String? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+
+        }
+
+
+    var foodCalory: String? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+
+        }
+
+
+    var foodGram: String? = null
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+
+        }
+
+
     constructor(parcel: Parcel) : this(
         foodName = parcel.readString(),
         foodPicture = parcel.readString(),
         foodDescription = parcel.readString(),
         foodPrice = parcel.readString(),
         foodColor = parcel.readString(),
-        drinkLiter = parcel.readString()
+        drinkLiter = parcel.readString(),
+        foodCategory = parcel.readString()
     ) {
     }
 
@@ -40,6 +93,7 @@ class FoodModel(
         parcel.writeString(foodPrice)
         parcel.writeString(foodColor)
         parcel.writeString(drinkLiter)
+        parcel.writeString(foodCategory)
     }
 
     override fun describeContents(): Int {

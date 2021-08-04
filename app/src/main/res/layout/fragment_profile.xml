@@ -7,7 +7,7 @@
     tools:context=".fragments.ProfileFragment">
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,423 +16,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <TextView
-                android:id="@+id/profile_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="Profilim"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/my_card"
+            <RelativeLayout
+                android:id="@+id/profile_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_text"
-                android:layout_margin="10dp"
-                app:cardBackgroundColor="@color/darkBlue"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
+                android:layout_height="wrap_content">
 
 
-                <RelativeLayout
-                    android:animateLayoutChanges="true"
-                    android:id="@+id/topProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp">
+                <include
+                    android:id="@+id/profile_include"
+                    layout="@layout/profile_include" />
 
-                    <RelativeLayout
-                        android:id="@+id/ustBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <com.mikhaellopez.circularimageview.CircularImageView
-                            android:id="@+id/user_picture"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            app:civ_border_color="@color/white"
-                            app:civ_border_width="2dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toEndOf="@+id/user_picture"
-                            android:orientation="vertical">
+                <include
+                    android:id="@+id/login_include"
+                    layout="@layout/login_include" />
 
 
-                            <TextView
-                                android:id="@+id/user_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-
-                                <TextView
-                                    android:id="@+id/user_email"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:maxLength="50"
-                                    android:fontFamily="@font/roboto_medium"
-                                    android:textColor="#EDEDED"
-                                    android:textSize="17sp" />
-
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:id="@+id/next"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/next"
-
-                            />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:visibility="gone"
-                        android:id="@+id/altBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/ustBar"
-                        android:layout_marginTop="20dp">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@color/lightWhite"
-                            app:boxCornerRadiusTopEnd="10dp"
-                            app:boxCornerRadiusTopStart="10dp"
-                            app:boxCornerRadiusBottomStart="10dp"
-                            android:id="@+id/nameTextInputLayout"
-                            app:boxCornerRadiusBottomEnd="10dp"
-                            app:boxStrokeColor="@color/darkBlue"
-                            app:boxStrokeWidth="0dp"
-                            android:background="@null"
-                            app:hintTextColor="@color/darkBlue"
-                            app:hintEnabled="true"
-                            android:layout_margin="10dp"
-                            app:endIconMode="clear_text">
-
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Emre Küçük"
-                                android:maxLength="50"
-                                android:id="@+id/name_textInput"
-                                android:inputType="text"
-                                android:textColor="@color/lightBlack" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:boxBackgroundColor="@color/lightWhite"
-                            app:boxCornerRadiusTopEnd="10dp"
-                            app:boxCornerRadiusTopStart="10dp"
-                            app:boxCornerRadiusBottomStart="10dp"
-                            android:id="@+id/phoneTextInputLayout"
-                            android:layout_below="@+id/nameTextInputLayout"
-                            app:boxCornerRadiusBottomEnd="10dp"
-                            app:boxStrokeColor="@color/darkBlue"
-                            app:boxStrokeWidth="0dp"
-                            android:background="@null"
-                            app:hintTextColor="@color/darkBlue"
-                            app:hintEnabled="true"
-                            app:prefixText="+90 "
-                            app:prefixTextColor="@color/darkBlue"
-                            android:layout_margin="10dp"
-                            app:endIconMode="clear_text">
-
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="+90 5557824152"
-                                android:maxLength="10"
-                                android:id="@+id/phone_textInput"
-                                android:inputType="numberDecimal"
-                                android:textColor="@color/lightBlack" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/update_button"
-                            android:layout_below="@+id/phoneTextInputLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="@color/darkBlue"
-                            android:shadowColor="@color/white"
-                            android:shadowRadius="5"
-                            android:text="Güncelle"
-                            android:textAllCaps="false"
-                            android:fontFamily="@font/roboto_medium"
-                            android:textColor="@color/white"
-                            android:textSize="19sp"
-                            />
-
-
-                    </RelativeLayout>
-
-
-                </RelativeLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-
-            <TextView
-                android:id="@+id/progress_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/my_card"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="İşlemlerim"
-                android:textColor="@color/lightBlack"
-                android:textSize="19sp" />
+            </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/progress_layout"
+                android:id="@+id/options_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/progress_text"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="@color/darkBlue"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="10dp">
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <LinearLayout
-                            android:id="@+id/ly"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_margin="10dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-
-                            <TextView
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="5dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Tüm\nsiparişlerim"
-                                android:textAlignment="center"
-                                android:textColor="@color/lightWhite"
-                                android:textSize="15sp" />
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:src="@drawable/shopping_bag" />
-
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/order_counter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/ly"
-                            android:text="25"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="55sp" />
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="@color/darkGray"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="10dp">
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <LinearLayout
-                            android:id="@+id/ly2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_margin="10dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-
-                            <TextView
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_margin="5dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Tüm\nbeğenilerim"
-                                android:textAlignment="center"
-                                android:textColor="@color/lightWhite"
-                                android:textSize="15sp" />
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:src="@drawable/like" />
-
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/counter_like"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/ly2"
-                            android:text="25"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="55sp" />
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/progress_layout"
+                android:layout_below="@id/profile_layout"
                 android:orientation="vertical">
 
 
                 <RelativeLayout
+                    android:id="@+id/cart_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
-
-                    <ImageView
-                        android:id="@+id/p1"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/shop_b" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toEndOf="@+id/p1"
-                        android:text="Sepetim"
-                        android:textColor="@color/lightBlack"
-                        android:textSize="19sp" />
-
-
-                    <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/next_gray" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
-
-                    <ImageView
-                        android:id="@+id/p2"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/safety" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toEndOf="@+id/p2"
-                        android:text="Gizlilik ve Kullanım koşulları"
-                        android:textColor="@color/lightBlack"
-                        android:textSize="19sp" />
-
-
-                    <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/next_gray" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true">
 
                     <ImageView
                         android:id="@+id/p3"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/setting" />
+                        android:src="@drawable/credit_card" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -440,7 +62,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toEndOf="@+id/p3"
-                        android:text="Diğer ayarlar"
+                        android:text="Kartlarım"
                         android:textColor="@color/lightBlack"
                         android:textSize="19sp" />
 
@@ -455,9 +77,12 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/signout_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true">
 
                     <ImageView
                         android:id="@+id/p4"
@@ -490,6 +115,6 @@
 
         </RelativeLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

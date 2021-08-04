@@ -120,6 +120,13 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
+
+
+        binding.resetButton.setOnClickListener {
+
+            GetFoods().resetPassword(binding.textEmailEditText.text.toString(), it)
+        }
+
     }
 
 }

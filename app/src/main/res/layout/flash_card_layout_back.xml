@@ -1,0 +1,98 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/debitCardColor"
+    app:cardElevation="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Authorized Signiture"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/lines" />
+
+                <TextView
+                    android:id="@+id/card_cvv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text="###"
+                    android:textColor="@color/llightGray"
+                    android:textSize="22sp"
+                    android:textStyle="italic" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="4dp"
+                    android:layout_height="wrap_content"
+                    android:text="90987547"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:textColor="@color/llightGray"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not Valid Unless Signed"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:src="@drawable/maximum"
+            android:layout_margin="10dp"
+            />
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+

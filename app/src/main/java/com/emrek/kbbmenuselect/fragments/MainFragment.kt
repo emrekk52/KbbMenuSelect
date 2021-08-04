@@ -10,13 +10,15 @@ import com.emrek.kbbmenuselect.R
 import com.emrek.kbbmenuselect.adapters.TabLayoutAdapter
 import com.emrek.kbbmenuselect.databinding.ActivityStoryBinding
 import com.emrek.kbbmenuselect.databinding.FragmentMainBinding
+import com.emrek.kbbmenuselect.tablayouts.*
 import github.com.st235.lib_expandablebottombar.ExpandableBottomBar
 import github.com.st235.lib_expandablebottombar.navigation.ExpandableBottomBarNavigationUI
 
 
 class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainBinding
+    private var binding: FragmentMainBinding? = null
+    private var adapter: TabLayoutAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,26 +29,32 @@ class MainFragment : Fragment() {
 
         setupTabs()
 
-
-
-        return binding.root
+        return binding!!.root
     }
 
     private fun setupTabs() {
 
-        val adapter = TabLayoutAdapter(activity?.supportFragmentManager!!)
-        adapter.addFragment(FruitsFragment(), "Meyveler")
-        adapter.addFragment(VegetablesFragments(), "Sebzeler")
-        adapter.addFragment(ColdDrinkFragment(), "Soğuk İçecekler")
-        adapter.addFragment(VegetablesFragments(), "Sıcak İçecekler")
-        adapter.addFragment(VegetablesFragments(), "Atıştırmalıklar")
-        adapter.addFragment(VegetablesFragments(), "Atıştırmalıklar")
-        adapter.addFragment(VegetablesFragments(), "Atıştırmalıklar")
-        adapter.addFragment(VegetablesFragments(), "Atıştırmalıklar")
+        adapter = TabLayoutAdapter(activity?.supportFragmentManager!!)
+        adapter!!.addFragment(SoupFragment(), "Çorbalar")
+        adapter!!.addFragment(MeatFragment(), "Et-Tavuk")
+        adapter!!.addFragment(FishFragment(), "Balık")
+        adapter!!.addFragment(AppetizerFragment(), "Mezeler")
+        adapter!!.addFragment(ColdDrinkFragment(), "Soğuk İçecekler")
+        adapter!!.addFragment(HotDrinkFragment(), "Sıcak İçecekler")
+        adapter!!.addFragment(CakeFragment(), "Tatlılar")
+        adapter!!.addFragment(FruitsFragment(), "Meyveler")
+        adapter!!.addFragment(VegetablesFragments(), "Sebzeler")
 
-        binding.viewPager.adapter = adapter
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding?.viewPager!!.adapter = adapter
+        binding?.tabLayout!!.setupWithViewPager(binding?.viewPager)
 
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.viewPager!!.adapter = null
+        binding = null
     }
 
 }

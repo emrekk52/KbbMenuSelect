@@ -58,6 +58,9 @@ class MyLikeFoodsAdapter(private var likesList: List<FoodModel>) :
             foodDescription?.text = data.foodDescription
             likeButton?.setOnClickListener {
                 GetFoods().getLikeFoods().child(data.foodID.toString()).removeValue()
+                if (data.food_likes.toString() != "null")
+                    data.food_likes = data.food_likes!!.toInt() - 1
+                GetFoods().updateFood(data)
             }
         }
 

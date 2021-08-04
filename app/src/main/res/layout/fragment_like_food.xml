@@ -22,8 +22,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp">
+        android:layout_alignParentTop="true">
 
 
         <TextView
@@ -31,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/roboto_medium"
-            android:text="Beğendiklerim"
+            android:text="Beğenilerim"
             android:textColor="@color/darkRed"
             android:textSize="18sp" />
 

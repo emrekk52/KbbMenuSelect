@@ -19,7 +19,10 @@
 
 
     <color name="lightOrange">#FFD08A</color>
-    <color name="darkOrange">#FFBF5E</color>
+    <color name="darkOrange">#EF9000</color>
+
+    <color name="ultraDarkGreen">#019C09</color>
+
 
     <color name="lightRed">#FF8484</color>
     <color name="darkRed">#FF4747</color>
@@ -33,6 +36,12 @@
     <color name="lightGray">#D6D6D6</color>
     <color name="darkGray">#B1B1B1</color>
 
+    <color name="transparentWhite">#9EFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="success">#04C30D</color>
+
+
     <color name="lightPurple">#EEBCF6</color>
     <color name="darkPurple">#C385CD</color>
 
@@ -41,5 +50,9 @@
 
     <color name="lightBrown">#937954</color>
     <color name="darkBrown">#916A31</color>
+
+
+    <color name="debitCardColor">#2B3B91</color>
+
 
 </resources>

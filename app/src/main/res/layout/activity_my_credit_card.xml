@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activitys.MyCreditCardActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:animateLayoutChanges="true"
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp">
+
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/back_button" />
+
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/hello_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Kartlarım"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/add_card"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/plus_b" />
+
+
+            </RelativeLayout>
+
+
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/info_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/top_bar"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/darkRed"
+                />
+
+
+
+            <com.wajahatkarim3.easyflipview.EasyFlipView
+                android:id="@+id/cardFlip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_bar"
+                app:autoFlipBack="true"
+                app:autoFlipBackTime="1500"
+                app:flipDuration="500"
+                app:flipEnabled="true"
+                app:flipFrom="front"
+                app:flipOnTouch="true"
+                app:flipType="vertical">
+
+
+                <include
+                    android:id="@+id/card_back"
+                    layout="@layout/flash_card_layout_back" />
+
+
+                <include
+                    android:id="@+id/card_front"
+                    layout="@layout/flash_card_layout_front" />
+
+            </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardFlip">
+                <include android:id="@+id/input" layout="@layout/card_input" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

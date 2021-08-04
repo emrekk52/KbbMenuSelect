@@ -1,7 +1,9 @@
 package com.emrek.kbbmenuselect.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +21,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emrek.kbbmenuselect.GetFoods
 import com.emrek.kbbmenuselect.R
+import com.emrek.kbbmenuselect.activitys.LoginActivity
+import com.emrek.kbbmenuselect.activitys.MyCreditCardActivity
 import com.emrek.kbbmenuselect.databinding.FragmentProfileBinding
 import com.emrek.kbbmenuselect.models.ProfileModel
 import com.emrek.kbbmenuselect.viewmodels.ProfileViewModel
@@ -33,7 +37,6 @@ class ProfileFragment : Fragment() {
     private var collapse = false
     lateinit var my_profile: ProfileModel
 
-    private val REQUEST_CODE_STORAGE_PERMISSION = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,43 +48,74 @@ class ProfileFragment : Fragment() {
         buttonSetup()
         viewModelLiveDataSetup()
 
+
+
+
         return binding.root
     }
 
     fun buttonSetup() {
-        binding.myCard.setOnClickListener {
+        binding.profileInclude.myCard.setOnClickListener {
             if (!collapse) {
-                binding.next.rotation = 90f
-                binding.altBar.visibility = View.VISIBLE
+                binding.profileInclude.next.rotation = 90f
+                binding.profileInclude.altBar.visibility = View.VISIBLE
                 collapse = true
             } else {
-                binding.next.rotation = 0f
-                binding.altBar.visibility = View.GONE
+                binding.profileInclude.next.rotation = 0f
+                binding.profileInclude.altBar.visibility = View.GONE
                 collapse = false
             }
 
 
         }
 
-        binding.updateButton.setOnClickListener {
+        binding.profileInclude.updateButton.setOnClickListener {
 
-            if (binding.nameTextInput.length() > 0)
-                my_profile.nameAndSurname = binding.nameTextInput.text.toString()
+            if (binding.profileInclude.nameTextInput.length() > 0)
+                my_profile.nameAndSurname = binding.profileInclude.nameTextInput.text.toString()
 
 
-            if (binding.phoneTextInput.length() > 4)
-                my_profile.phone = binding.phoneTextInput.text.toString()
+            if (binding.profileInclude.phoneTextInput.length() > 4)
+                my_profile.phone = binding.profileInclude.phoneTextInput.text.toString()
 
 
             GetFoods().updateProfile(my_profile)
         }
 
-        binding.userPicture.setOnClickListener {
+        binding.profileInclude.userPicture.setOnClickListener {
 
             ImagePicker.with(requireActivity()).compress(1024).crop().createIntent { intent ->
                 startForProfileImageResult.launch(intent)
             }
         }
+
+
+        binding.loginInclude.loginButton.setOnClickListener {
+
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            intent.putExtra("info", "Devam etmek için giriş yapınız!")
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+
+        }
+
+
+        binding.signoutButton.setOnClickListener {
+            GetFoods().signOut(requireActivity())
+        }
+
+
+        binding.cartButton.setOnClickListener {
+
+            if (GetFoods().isLogin(requireActivity())) {
+                val intent = Intent(requireActivity(), MyCreditCardActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            }
+
+        }
+
+
     }
 
     private val startForProfileImageResult =
@@ -108,22 +142,49 @@ class ProfileFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
         GetFoods().getProfileInfo(viewModel)
         GetFoods().getMyLikeFoodCount(viewModel)
+        GetFoods().getOrderFoodCount(viewModel)
+        GetFoods().getIsAuthProfile(viewModel)
+
+        var sharedPr =
+            requireActivity().getSharedPreferences(
+                requireActivity().packageName,
+                Context.MODE_PRIVATE
+            )
 
         viewModel.getProfile().observe(requireActivity(), Observer {
             my_profile = it
-            binding.nameTextInputLayout.hint = it.nameAndSurname.toString()
-            binding.phoneTextInputLayout.hint = "+90 " + it.phone.toString()
-            binding.userName.text = it.nameAndSurname.toString()
-            binding.userEmail.text = it.email.toString()
+            binding.profileInclude.nameTextInputLayout.hint = it.nameAndSurname.toString()
+            binding.profileInclude.phoneTextInputLayout.hint = "+90 " + it.phone.toString()
+            binding.profileInclude.userName.text = it.nameAndSurname.toString()
+            binding.profileInclude.userEmail.text = it.email.toString()
             Picasso.get().load(it.profilePhotoUrl.toString()).placeholder(R.drawable.plus_b)
-                .into(binding.userPicture)
-
+                .into(binding.profileInclude.userPicture)
+            sharedPr.edit().putString("user_name", it.nameAndSurname.toString()).apply()
         })
 
         viewModel.getLikeCount().observe(requireActivity(), Observer {
-            binding.counterLike.text = it.toString()
+            binding.profileInclude.counterLike.text = it.toString()
         })
 
+        viewModel.getOrderCount().observe(requireActivity(), Observer {
+            binding.profileInclude.orderCounter.text = it.toString()
+        })
+
+        viewModel.getAuth().observe(requireActivity(), Observer {
+
+            if (it == true) {
+                binding.loginInclude.loginLayout.visibility = View.GONE
+                binding.profileInclude.profile.visibility = View.VISIBLE
+                binding.optionsLayout.visibility = View.VISIBLE
+
+            } else {
+                binding.profileInclude.profile.visibility = View.GONE
+                binding.optionsLayout.visibility = View.GONE
+                binding.loginInclude.loginLayout.visibility = View.VISIBLE
+
+            }
+
+        })
 
     }
 

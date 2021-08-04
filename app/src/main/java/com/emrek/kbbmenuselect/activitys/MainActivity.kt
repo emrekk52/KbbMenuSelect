@@ -2,6 +2,7 @@ package com.emrek.kbbmenuselect.activitys
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
@@ -88,21 +89,19 @@ class MainActivity : AppCompatActivity() {
 
 
         val viewModel = ViewModelProvider(this@MainActivity).get(MainViewModel::class.java)
-        GetFoods().getProfileInfo(viewModel)
         GetFoods().getMyLikeFoodCount(viewModel)
 
-        viewModel.getProfile().observe(this, Observer {
+        val sharedPr = getSharedPreferences(packageName, Context.MODE_PRIVATE)
 
-            val liste = arrayOf(
-                "Merhaba, ${it.nameAndSurname} \uD83C\uDF88",
-                "Mutlu günler \uD83D\uDE0A",
-                "Canın bir şeyler çektiyse, durma hadi bir şeyler söyle!",
-                "İyi alışverişler! \uD83C\uDF89"
-            )
+        val liste = arrayOf(
+            "Merhaba ${sharedPr.getString("user_name", "")} \uD83C\uDF88",
+            "Mutlu günler \uD83D\uDE0A",
+            "Canın bir şeyler çektiyse, durma hadi bir şeyler söyle!",
+            "Afiyet olsun! \uD83C\uDF54"
+        )
 
-            countHelloText(liste)
+        countHelloText(liste)
 
-        })
 
 
         viewModel.getLikeCount().observe(this, Observer {
@@ -161,15 +160,12 @@ class MainActivity : AppCompatActivity() {
 
     fun setUpButton() {
         binding.shoppingBag.setOnClickListener {
-            val intent: Intent?
-            if (GetFoods().isAuth()) {
-                intent = Intent(this@MainActivity, OrderActivity::class.java)
-            } else {
-                intent = Intent(this@MainActivity, LoginActivity::class.java)
-                intent.putExtra("info", "Öncelikle giriş yapmalısınız *")
+
+            if (GetFoods().isLogin(this@MainActivity)) {
+                val intent = Intent(this@MainActivity, OrderActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
         }
 
 
