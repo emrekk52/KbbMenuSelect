@@ -13,6 +13,7 @@ import com.emrek.kbbmenuselect.activitys.MainActivity
 import com.emrek.kbbmenuselect.models.*
 import com.emrek.kbbmenuselect.viewmodels.*
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -572,6 +573,68 @@ class GetFoods() {
     }
 
 
+    fun getQuery(viewModel: SearchViewModel, queryText: String) {
+        val list = mutableListOf<FoodModel>()
+        list.clear()
+        val listener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.forEach {
+                    var food = FoodModel(
+                        it.child("foodName").value.toString(),
+                        it.child("foodPicture").value.toString(),
+                        it.child("foodDescription").value.toString(),
+                        it.child("foodPrice").value.toString(),
+                        it.child("foodColor").value.toString(),
+                        it.child("drinkLiter").value.toString(),
+                        it.child("foodCategory").value.toString(),
+                    )
+
+                    food.foodID = it.child("foodID").value.toString()
+                    food.isOffer = it.child("isOffer").value.toString().toBoolean()
+                    if (it.child("food_likes").value.toString() != "null")
+                        food.food_likes = it.child("food_likes").value.toString().toInt()
+
+                    food.foodGram = it.child("foodGram").value.toString()
+
+                    food.deliveryTime = it.child("deliveryTime").value.toString()
+                    food.foodCalory = it.child("foodCalory").value.toString()
+
+                    if (!queryText.isNullOrEmpty())
+                        list.add(food)
+                }
+
+                viewModel.setQuery(list)
+
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+        }
+
+        getFruits().orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getVegetables().orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getColdDrink().orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getFood("hotDrink").orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getFood("soups").orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getFood("appetizer").orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getFood("cakes").orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getFood("fish").orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+        getFood("meats").orderByChild("foodName").startAt(queryText).endAt(queryText + "\uf8ff")
+            .addListenerForSingleValueEvent(listener)
+
+    }
+
+
     fun updateFood(data: FoodModel) {
         lateinit var reference: DatabaseReference
         when (data.foodCategory.toString()) {
@@ -694,15 +757,7 @@ class GetFoods() {
 
     fun getCurrentTime(): String {
 
-        val currentDate =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy"))
-                    .toString()
-            } else {
-                SimpleDateFormat("HH:mm dd.MM.yyyy").format(Date()).toString()
-            }
-
-        return currentDate
+        return Timestamp.now().toDate().toString()
 
     }
 

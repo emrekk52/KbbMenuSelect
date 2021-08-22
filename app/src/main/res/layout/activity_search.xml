@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activitys.SearchActivity">
+
+
+    <LinearLayout
+        android:id="@+id/search_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Aramak için"
+            android:textSize="18sp" />
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/search_bar_background_dark"
+            android:padding="11dp"
+            android:src="@drawable/search_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="dokunun"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="17sp"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/roboto_medium_numbers"
+        android:id="@+id/not_found_text"
+        />
+
+
+    <com.adrianotelesc.expandablesearchbar.ExpandableSearchBar
+        android:id="@+id/searchBar"
+        style="@style/ExpandableSearchBarDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:transitionName="example_transition"
+        app:hint="Aramaya başlayın 🔍"
+        app:searchBarBackgroundColor="@color/lightBlack"
+        app:searchBarBackgroundColorFocused="@color/lightBlack"
+        app:searchBarCornerRadius="10dp"
+        app:searchBarElevation="2dp"
+        app:searchIconDrawable="@drawable/search" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchBar"
+        android:layout_margin="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+</RelativeLayout>

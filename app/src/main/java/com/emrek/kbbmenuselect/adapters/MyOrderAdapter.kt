@@ -15,6 +15,7 @@ import com.emrek.kbbmenuselect.R
 import com.emrek.kbbmenuselect.models.FoodBag
 import com.emrek.kbbmenuselect.models.FoodModel
 import com.emrek.kbbmenuselect.models.OrderModel
+import com.emrek.kbbmenuselect.utils.downloadImage
 import com.squareup.picasso.Picasso
 
 class MyOrderAdapter(private var list: List<OrderModel>) :
@@ -46,15 +47,15 @@ class MyOrderAdapter(private var list: List<OrderModel>) :
 
         fun setUp(data: OrderModel) {
             when (data.foodBag.size) {
-                1 -> Picasso.get().load(data.foodBag[0].foodPicture).into(picture1)
+                1 -> picture1?.downloadImage(data.foodBag[0].foodPicture)
                 2 -> {
-                    Picasso.get().load(data.foodBag[0].foodPicture).into(picture1)
-                    Picasso.get().load(data.foodBag[1].foodPicture).into(picture2)
+                    picture1?.downloadImage(data.foodBag[0].foodPicture)
+                    picture2?.downloadImage(data.foodBag[1].foodPicture)
                 }
                 else -> {
-                    Picasso.get().load(data.foodBag[0].foodPicture).into(picture1)
-                    Picasso.get().load(data.foodBag[1].foodPicture).into(picture2)
-                    Picasso.get().load(data.foodBag[2].foodPicture).into(picture3)
+                    picture1?.downloadImage(data.foodBag[0].foodPicture)
+                    picture2?.downloadImage(data.foodBag[1].foodPicture)
+                    picture3?.downloadImage(data.foodBag[2].foodPicture)
                 }
             }
 
@@ -71,7 +72,7 @@ class MyOrderAdapter(private var list: List<OrderModel>) :
 
             if (data.orderStatus.equals("Sipariş tamamlandı"))
                 order_status?.setTextColor(Color.parseColor("#04C30D"))
-            else if(data.orderStatus.equals("Sipariş reddedildi"))
+            else if (data.orderStatus.equals("Sipariş reddedildi"))
                 order_status?.setTextColor(Color.parseColor("#ff0000"))
 
             card?.setOnClickListener {

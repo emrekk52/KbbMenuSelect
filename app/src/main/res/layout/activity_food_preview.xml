@@ -326,7 +326,6 @@
                         app:counterEnabled="true"
                         app:counterMaxLength="150"
                         app:counterTextColor="@color/ultraDarkGreen"
-
                         app:endIconCheckable="true"
                         app:endIconMode="clear_text">
 

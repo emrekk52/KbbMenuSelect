@@ -25,6 +25,7 @@ import com.emrek.kbbmenuselect.activitys.LoginActivity
 import com.emrek.kbbmenuselect.activitys.MyCreditCardActivity
 import com.emrek.kbbmenuselect.databinding.FragmentProfileBinding
 import com.emrek.kbbmenuselect.models.ProfileModel
+import com.emrek.kbbmenuselect.utils.downloadImage
 import com.emrek.kbbmenuselect.viewmodels.ProfileViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.squareup.picasso.Picasso
@@ -157,8 +158,14 @@ class ProfileFragment : Fragment() {
             binding.profileInclude.phoneTextInputLayout.hint = "+90 " + it.phone.toString()
             binding.profileInclude.userName.text = it.nameAndSurname.toString()
             binding.profileInclude.userEmail.text = it.email.toString()
-            Picasso.get().load(it.profilePhotoUrl.toString()).placeholder(R.drawable.plus_b)
-                .into(binding.profileInclude.userPicture)
+
+            /* Picasso.get().load(it.profilePhotoUrl.toString()).placeholder(R.drawable.plus_b)
+                 .into(binding.profileInclude.userPicture)
+             */
+
+            binding.profileInclude.userPicture.downloadImage(it.profilePhotoUrl.toString())
+
+
             sharedPr.edit().putString("user_name", it.nameAndSurname.toString()).apply()
         })
 

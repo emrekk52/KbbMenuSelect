@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emrek.kbbmenuselect.GetFoods
 import com.emrek.kbbmenuselect.R
 import com.emrek.kbbmenuselect.models.FoodModel
+import com.emrek.kbbmenuselect.utils.downloadImage
 import com.squareup.picasso.Picasso
 
 class MyLikeFoodsAdapter(private var likesList: List<FoodModel>) :
@@ -51,8 +52,12 @@ class MyLikeFoodsAdapter(private var likesList: List<FoodModel>) :
         }
 
         fun setUp(data: FoodModel) {
-            Picasso.get().load(data.foodPicture).placeholder(R.drawable.biggerplaceholder)
-                .into(foodPicture)
+
+            /*    Picasso.get().load(data.foodPicture).placeholder(R.drawable.biggerplaceholder)
+                    .into(foodPicture)
+    */
+
+            foodPicture?.downloadImage(data.foodPicture)
 
             foodName?.text = data.foodName
             foodDescription?.text = data.foodDescription

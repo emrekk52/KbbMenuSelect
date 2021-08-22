@@ -47,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
 
         inputSetup()
 
-        println("giriş yaptımı " + GetFoods().isAuth())
 
     }
 

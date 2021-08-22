@@ -6,19 +6,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE " />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE " />
 
-
-
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/app_icon_foreground"
+        android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KbbMenuSelectNoActionBar">
-
-
-
+        <activity
+            android:name=".activitys.SearchActivity"
+            android:exported="true" />
         <activity android:name=".activitys.CommentActivity" />
         <activity android:name=".activitys.MyCreditCardActivity" />
         <activity android:name=".activitys.StoryActivity" />
@@ -31,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

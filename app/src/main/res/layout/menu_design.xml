@@ -23,7 +23,7 @@
             android:id="@+id/foodPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/avocado"
             android:transitionName="food_small"
             app:layout_constraintHeight_max="180dp"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -60,6 +60,7 @@ class StoryActivity : AppCompatActivity() {
 
         initPlayer()
 
+
     }
 
 

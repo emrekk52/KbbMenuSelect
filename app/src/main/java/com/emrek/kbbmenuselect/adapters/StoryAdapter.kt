@@ -1,5 +1,6 @@
 package com.emrek.kbbmenuselect.adapters
 
+import android.content.Context
 import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.emrek.kbbmenuselect.R
 import com.emrek.kbbmenuselect.models.FoodModel
 import com.emrek.kbbmenuselect.models.StoryModel
+import com.emrek.kbbmenuselect.utils.downloadImage
 import com.squareup.picasso.Picasso
+import kotlin.coroutines.coroutineContext
 
-class StoryAdapter(private var storyList: List<StoryModel>) :
+class StoryAdapter(private var storyList: List<StoryModel>, var context: Context) :
     RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
 
 
@@ -35,15 +41,21 @@ class StoryAdapter(private var storyList: List<StoryModel>) :
 
     override fun getItemCount() = storyList.size
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
 
         val food_picture: ImageView? = view.findViewById(R.id.food_picture)
         val foodName: TextView? = view.findViewById(R.id.food_name)
 
         fun setUp(data: StoryModel) {
 
-            Picasso.get().load(data.brandPicture).placeholder(R.drawable.littleplaceholder)
-                .into(food_picture)
+            /*  Picasso.get().load(data.brandPicture).placeholder(R.drawable.littleplaceholder)
+                  .centerCrop().into(food_picture)
+  */
+
+            food_picture?.downloadImage(data.brandPicture)
+
+
             foodName?.text = data.brandName
             foodName?.isSelected = true
         }
@@ -65,5 +77,6 @@ class StoryAdapter(private var storyList: List<StoryModel>) :
     interface ClickListener {
         fun onItemClick(v: View, position: Int)
     }
+
 
 }

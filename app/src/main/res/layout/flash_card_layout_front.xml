@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="235dp"
     android:layout_margin="10dp"
     app:cardBackgroundColor="@color/debitCardColor"
     app:cardCornerRadius="10dp"
@@ -154,18 +154,17 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_toLeftOf="@+id/visa"
                 android:id="@+id/card_name"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginRight="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:textSize="20sp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/visa"
+                android:ellipsize="end"
                 android:fontFamily="@font/roboto_medium"
+                android:maxLines="1"
                 android:textColor="@color/lightGray"
-                />
+                android:textSize="20sp" />
 
 
             <ImageView

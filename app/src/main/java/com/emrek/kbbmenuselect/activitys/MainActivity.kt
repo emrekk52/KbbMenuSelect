@@ -15,7 +15,9 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.ViewSwitcher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.getRoot()
         setContentView(view)
 
-        storyAdapter = StoryAdapter(storyList)
+        storyAdapter = StoryAdapter(storyList,applicationContext)
         binding.horizontalRecycler.adapter = storyAdapter
 
         bottomBarInit()
@@ -178,6 +180,26 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+
+
+        binding.searchButton.setOnClickListener {
+
+            val intent = Intent(this, SearchActivity::class.java)
+
+            val options =
+                ViewCompat.getTransitionName(binding.searchButton)?.let { it1 ->
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this, binding.searchButton,
+                        it1
+                    )
+                }
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent, options?.toBundle())
+
+        }
+
 
     }
 
