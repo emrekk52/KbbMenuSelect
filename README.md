@@ -1,7 +1,18 @@
 
 # Food Delivery App 🍔
 
+ ### app functions
+ * Create registration, reset password and login
+ * Add product to cart
+ * Add credit card information
+ * Create an order and view order status
+ * Add favorite products to favorites
+ * View and update profile information
+ * Commenting and voting on food
+ * Food search
  * Basic shopping transactions and much more
+
+
 # APP PHOTO GALLERY
 
 
